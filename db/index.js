@@ -16,7 +16,6 @@ fs.readdirSync(__dirname)
     db[model.name] = model;
   });
 
-// Вызываем associate, если есть
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) db[modelName].associate(db);
 });
