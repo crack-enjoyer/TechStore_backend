@@ -1,28 +1,27 @@
-// scripts/sync-db.js
 require('dotenv').config();
-const db = require('../db/index');
+const db = require('../db/init');
 
-async function main() {
+async function main(options = {}) {
   try {
-    // Опция { alter: true } удобна на dev для автоматического приведения схемы,
-    // но для production используйте миграции.
-    await db.sequelize.authenticate();
-    console.log('DB connected');
+    await sequelize.authenticate();
+    console.log('Подключение к базе данных установлено успешно');
 
-    await db.sequelize.sync({ alter: true });
-    console.log('DB synced');
-
-    // сид: роли
-    const roles = ['admin','customer','manager'];
-    for (const r of roles) {
-      await db.Role.findOrCreate({ where: { name: r }, defaults: { description: `${r} role` } });
+    if (options.sync !== false) {
+      await sequelize.sync({ 
+        force: options.force || false,
+        alter: options.alter || false  
+      });
+      console.log('Модели синхронизированы с базой данных');
     }
 
-    console.log('Seeded roles.');
-    process.exit(0);
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
+    if (options.seedRoles !== false) {
+      await db.seedBasicRoles();
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Ошибка инициализации базы данных:', error);
+    throw error;
   }
 }
 
