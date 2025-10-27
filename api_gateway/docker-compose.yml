@@ -1,0 +1,11 @@
+api_gateway:
+  build: ./api_gateway
+  ports:
+    - "3000:3000"
+  environment:
+    - JWT_SECRET=aksd019Jsjdxk09  # ← должен совпадать с сервисами!
+  depends_on:
+    - user-service
+    - goods-service
+  networks:
+    - app-network
