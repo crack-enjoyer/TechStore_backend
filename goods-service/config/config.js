@@ -2,7 +2,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
-  port: process.env.PORT || '3001',
+  userServiceUrl: process.env.USER_SERVICE_URL,
+  port: process.env.PORT || '3002',
   host: process.env.DB_HOST || 'localhost',
   db_port: process.env.DB_PORT || '5432',
   dialect: process.env.DB_DIALECT,

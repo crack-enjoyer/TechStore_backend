@@ -1,0 +1,15 @@
+# Dockerfile
+FROM node:20-alpine
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package*.json ./
+RUN npm ci --only=production && npm cache clean --force
+
+# Copy source
+COPY . .
+
+EXPOSE 3001
+CMD ["node", "index.js"]

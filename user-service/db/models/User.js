@@ -35,8 +35,13 @@ module.exports = (sequelize) => {
   }, {
     tableName: 'users',
     timestamps: true,
-    underscores: true
+    underscored: true
   });
+
+  User.prototype.toPublic = function () {
+    const { id, email, name, surname, patronymic, role, createdAt, updatedAt } = this;
+    return { id, email, name, surname, patronymic, role, createdAt, updatedAt };
+  };
 
   return User;
 };

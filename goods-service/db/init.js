@@ -23,10 +23,10 @@ const sequelize = new Sequelize(
   }
 );
 
-const User = require('./models/User')(sequelize);
+const Goods = require('./models/Goods')(sequelize);
 
 module.exports = {
   sequelize,
   Sequelize,
-  User,
+  Goods,
 };

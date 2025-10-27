@@ -1,5 +1,4 @@
-require('dotenv').config();
-const db = require('../db/init');
+const { sequelize } = require('../db/init');
 
 async function main(options = {}) {
   try {
@@ -14,10 +13,6 @@ async function main(options = {}) {
       console.log('Модели синхронизированы с базой данных');
     }
 
-    if (options.seedRoles !== false) {
-      await db.seedBasicRoles();
-    }
-
     return true;
   } catch (error) {
     console.error('Ошибка инициализации базы данных:', error);
@@ -25,4 +20,4 @@ async function main(options = {}) {
   }
 }
 
-main();
+module.exports = { main };
